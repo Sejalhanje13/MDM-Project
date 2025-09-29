@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderWise - Travel & Tourism</title>
+    <style>
+     * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Modern Travel-Inspired Color Palette */
+            --primary-color: #2563eb;        /* Ocean Blue */
+            --primary-dark: #1d4ed8;         /* Darker Blue */
+            --primary-light: #3b82f6;        /* Lighter Blue */
+            
+            --accent-color: #f59e0b;          /* Sunset Orange */
+            --accent-light: #fbbf24;         /* Light Orange */
+            --accent-dark: #d97706;          /* Dark Orange */
+            
+            --secondary-color: #10b981;      /* Tropical Green */
+            --secondary-light: #34d399;      /* Light Green */
+            
+            --tertiary-color: #8b5cf6;       /* Adventure Purple */
+            --tertiary-light: #a78bfa;       /* Light Purple */
+            
+            --text-dark: #1f2937;            /* Rich Dark Gray */
+            --text-medium: #4b5563;          /* Medium Gray */
+            --text-light: #6b7280;           /* Light Gray */
+            --text-lighter: #9ca3af;         /* Very Light Gray */
+            
+            /* Subtle Background Color Palette */
+            --background: #fafbfc;           /* Very Light Blue-Gray */
+            --background-light: #f8fafc;     /* Lighter Blue-Gray */
+            --background-darker: #f1f5f9;    /* Slightly Darker Background */
+            --section-bg: #f1f5f9;           /* Soft Blue-Gray Section Background */
+            --section-alt: #e2e8f0;          /* Alternative Section Background */
+            --section-light: #f8fafc;        /* Light Section Background */
+            
+            --card-bg: #ffffff;              /* Pure White Cards */
+            --card-bg-subtle: #fefefe;       /* Subtle Card Background */
+            --overlay-dark: rgba(31, 41, 55, 0.7);    /* Dark Overlay */
+            --overlay-light: rgba(248, 250, 252, 0.95); /* Light Blue-Gray Overlay */
+            
+            --success-color: #059669;        /* Success Green */
+            --warning-color: #d97706;        /* Warning Orange */
+            --error-color: #dc2626;          /* Error Red */
+            
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            --gradient-hero: linear-gradient(135deg, var(--primary-color), var(--tertiary-color));
+            --gradient-card: linear-gradient(145deg, var(--card-bg), var(--background-light));
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+            background-color: var(--background);
+           
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(135, 206, 250, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            margin: 3px 0;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-dark);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease 0.3s both;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 18px 36px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: var(--shadow-lg);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.3);
+            background: linear-gradient(135deg, var(--accent-dark), var(--accent-color));
+        }
+
+        /* Search Section */
+        .search-section {
+            background: linear-gradient(135deg, var(--section-bg), var(--section-light));
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .search-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(37, 99, 235, 0.02) 0%,
+                rgba(245, 158, 11, 0.02) 50%,
+                rgba(139, 92, 246, 0.02) 100%);
+            pointer-events: none;
+        }
+
+        .search-container {
+            background: linear-gradient(135deg, var(--card-bg), var(--card-bg-subtle));
+            padding: 2.5rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-input, .filter-select {
+            padding: 16px 20px;
+            border: 2px solid var(--section-alt);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--background), var(--background-light));
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .search-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Recommendations Section */
+        .recommendations {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--background), var(--background-light));
+            position: relative;
+        }
+
+        .recommendations::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, 
+                rgba(37, 99, 235, 0.03) 0%,
+                transparent 50%),
+            radial-gradient(circle at 80% 20%, 
+                rgba(245, 158, 11, 0.03) 0%,
+                transparent 50%);
+            pointer-events: none;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .destination-card {
+            background: linear-gradient(135deg, var(--card-bg), var(--card-bg-subtle));
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: slideInUp 0.6s ease;
+            border: 1px solid rgba(226, 232, 240, 0.4);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .destination-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .destination-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .destination-card:hover .destination-image {
+            transform: scale(1.05);
+        }
+
+        .destination-info {
+            padding: 2rem;
+        }
+
+        .destination-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .destination-continent {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .destination-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .budget {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-accent:hover {
+            background: linear-gradient(135deg, var(--accent-dark), var(--accent-color));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-remove {
+            background: linear-gradient(135deg, var(--error-color), #ef4444);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-remove:hover {
+            background: linear-gradient(135deg, #b91c1c, var(--error-color));
+            transform: translateY(-2px);
+        }
+
+        /* Bucket List Section */
+        .bucket-list {
+            background: linear-gradient(135deg, var(--section-bg), var(--background-darker));
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .bucket-list::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(16, 185, 129, 0.02) 0%,
+                rgba(139, 92, 246, 0.02) 100%);
+            pointer-events: none;
+        }
+
+        .bucket-controls {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .bucket-controls .btn {
+            margin: 0 0.75rem;
+        }
+
+        .empty-bucket {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-light);
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--card-bg), var(--background-light));
+            border-radius: var(--border-radius-lg);
+            border: 2px dashed var(--section-alt);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Trip Planner */
+        .trip-planner {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--background), var(--section-light));
+            position: relative;
+        }
+
+        .trip-planner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, 
+                rgba(37, 99, 235, 0.03) 0%,
+                transparent 60%);
+            pointer-events: none;
+        }
+
+        .planner-form {
+            background: linear-gradient(135deg, var(--card-bg), var(--card-bg-subtle));
+            padding: 3rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid rgba(226, 232, 240, 0.4);
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group select, 
+        .form-group input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--section-alt);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--background), var(--background-light));
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .trip-result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--section-bg), var(--section-light));
+            border-radius: var(--border-radius);
+            display: none;
+            border-left: 4px solid var(--secondary-color);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Services Section */
+        .services {
+            background: linear-gradient(135deg, var(--section-bg), var(--background-darker));
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(245, 158, 11, 0.02) 0%,
+                rgba(16, 185, 129, 0.02) 50%,
+                rgba(139, 92, 246, 0.02) 100%);
+            pointer-events: none;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, var(--card-bg), var(--card-bg-subtle));
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(226, 232, 240, 0.4);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .service-card:nth-child(2) .service-icon {
+            background: var(--gradient-accent);
+        }
+
+        .service-card:nth-child(3) .service-icon {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+        }
+
+        .service-card:nth-child(4) .service-icon {
+            background: linear-gradient(135deg, var(--tertiary-color), var(--tertiary-light));
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--background), var(--section-light));
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, 
+                rgba(139, 92, 246, 0.03) 0%,
+                transparent 60%);
+            pointer-events: none;
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, var(--card-bg), var(--card-bg-subtle));
+            padding: 3rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid rgba(226, 232, 240, 0.4);
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--section-alt);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--background), var(--background-light));
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--text-dark), #374151, #4b5563);
+            color: white;
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(37, 99, 235, 0.05) 0%,
+                transparent 50%,
+                rgba(245, 158, 11, 0.05) 100%);
+            pointer-events: none;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--accent-light);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .social-links a:hover {
+            background: var(--gradient-accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4b5563;
+            color: #9ca3af;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, rgba(248, 250, 252, 0.98), rgba(241, 245, 249, 0.95));
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow-lg);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+                padding: 2rem;
+            }
+
+            .search-input {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bucket-controls .btn {
+                display: block;
+                margin: 0.75rem auto;
+                width: 220px;
+            }
+
+            .destination-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .destination-actions > div {
+                display: flex;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .destination-card {
+                margin: 0 10px;
+            }
+
+            .planner-form,
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+
+        /* Additional Color Variants */
+        .text-primary { color: var(--primary-color); }
+        .text-accent { color: var(--accent-color); }
+        .text-secondary { color: var(--secondary-color); }
+        .bg-primary { background: var(--primary-color); }
+        .bg-accent { background: var(--accent-color); }
+        .bg-secondary { background: var(--secondary-color); }
+        .gradient-text {
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">WanderWise</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#search">Search</a></li>
+                <li><a href="#recommendations">Destinations</a></li>
+                <li><a href="#bucket-list">Bucket List</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-slider" id="heroSlider">
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80')"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1502782762841-9b67d2abd6d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Discover Amazing Destinations</h1>
+            <p>Explore the world's most beautiful places and create unforgettable memories</p>
+            <button class="cta-button" onclick="scrollToSection('search')">Start Your Journey</button>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search" class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search destinations...">
+                <select class="filter-select" id="continentFilter">
+                    <option value="all">All Continents</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Asia">Asia</option>
+                    <option value="America">America</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Oceania">Oceania</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendations Section -->
+    <section id="recommendations" class="recommendations">
+        <div class="container">
+            <h2 class="section-title">Top Recommendations</h2>
+            <p class="section-subtitle">Discover the world's most amazing destinations</p>
+            <div class="destinations-grid" id="destinationsGrid">
+                <!-- Destinations will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Bucket List Section -->
+    <section id="bucket-list" class="bucket-list">
+        <div class="container">
+            <h2 class="section-title">Your Bucket List</h2>
+            <div class="bucket-controls">
+                <button class="btn btn-outline" onclick="sortBucketList()">Sort A-Z</button>
+                <button class="btn btn-primary" onclick="clearBucketList()">Clear All</button>
+            </div>
+            <div class="destinations-grid" id="bucketListGrid">
+                <!-- Bucket list will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Trip Planner Section -->
+    <section id="trip-planner" class="trip-planner">
+        <div class="container">
+            <h2 class="section-title">Trip Planner</h2>
+            <p class="section-subtitle">Plan your perfect getaway</p>
+            <div class="planner-form">
+                <div class="form-group">
+                    <label for="plannerDestination">Select Destination:</label>
+                    <select id="plannerDestination">
+                        <option value="">Choose from your bucket list</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="travelers">Number of Travelers:</label>
+                    <input type="number" id="travelers" min="1" max="20" value="2">
+                </div>
+                <button class="btn btn-primary" onclick="planTrip()" style="width: 100%;">Plan My Trip</button>
+                
+                <div class="trip-result" id="tripResult">
+                    <h3>Your Trip Plan</h3>
+                    <div id="tripDetails"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Everything you need for the perfect travel experience</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">✈️</div>
+                    <h3>Flight Booking</h3>
+                    <p>Find and book the best flight deals to your dream destinations worldwide.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏨</div>
+                    <h3>Hotel Booking</h3>
+                    <p>Discover and reserve amazing accommodations from budget to luxury.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🗺️</div>
+                    <h3>Tour Packages</h3>
+                    <p>Expertly crafted tour packages with local guides and unique experiences.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📸</div>
+                    <h3>Photography Tours</h3>
+                    <p>Capture stunning moments with professional photography tour guides.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h3>Car Rentals</h3>
+                    <p>Rent reliable vehicles for your road trip adventures and city exploration.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🍽️</div>
+                    <h3>Food Tours</h3>
+                    <p>Taste authentic local cuisine with guided culinary adventures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Have questions? We're here to help plan your perfect trip!</p>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required placeholder="Tell us about your travel plans or ask any questions..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>WanderWise</h3>
+                    <p>Your trusted companion for discovering amazing destinations and creating unforgettable travel experiences around the world.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="YouTube">📺</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="#home" style="color: #aaa; text-decoration: none;">Home</a></li>
+                        <li><a href="#recommendations" style="color: #aaa; text-decoration: none;">Destinations</a></li>
+                        <li><a href="#services" style="color: #aaa; text-decoration: none;">Services</a></li>
+                        <li><a href="#contact" style="color: #aaa; text-decoration: none;">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>📧 info@wanderwise.com</p>
+                    <p>📞 +1 (555) 123-4567</p>
+                    <p>📍 123 Travel Street<br>Adventure City, AC 12345</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> WanderWise Travel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Destination data with class structure
+        class Destination {
+            constructor(id, name, continent, image, wikipedia, budget) {
+                this.id = id;
+                this.name = name;
+                this.continent = continent;
+                this.image = image;
+                this.wikipedia = wikipedia;
+                this.budget = budget;
+            }
+
+            getCard() {
+                return `
+                    <div class="destination-card" style="animation-delay: ${Math.random() * 0.5}s">
+                        <div class="destination-image" style="background-image: url('${this.image}'); background-size: cover; background-position: center; height: 250px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #666;">
+                            <span style="display: none;" class="fallback-text">${this.name}</span>
+                        </div>
+                        <div class="destination-info">
+                            <h3 class="destination-name">${this.name}</h3>
+                            <p class="destination-continent">${this.continent}</p>
+                            <div class="destination-actions">
+                                <span class="budget">${this.budget}/person</span>
+                                <div>
+                                    <button class="btn btn-accent" onclick="addToBucketList('${this.id}')">Add to Bucket</button>
+                                    <button class="btn btn-outline" onclick="window.open('${this.wikipedia}', '_blank')">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            getBucketCard() {
+                return `
+                    <div class="destination-card" style="animation-delay: ${Math.random() * 0.5}s">
+                        <div class="destination-image" style="background-image: url('${this.image}'); background-size: cover; background-position: center; height: 250px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #666;">
+                            <span style="display: none;" class="fallback-text">${this.name}</span>
+                        </div>
+                        <div class="destination-info">
+                            <h3 class="destination-name">${this.name}</h3>
+                            <p class="destination-continent">${this.continent}</p>
+                            <div class="destination-actions">
+                                <span class="budget">${this.budget}/person</span>
+                                <button class="btn btn-remove" onclick="removeFromBucketList('${this.id}')">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Hero Slider Class
+        class HeroSlider {
+            constructor(sliderId) {
+                this.slider = document.getElementById(sliderId);
+                this.slides = this.slider.querySelectorAll('.hero-slide');
+                this.currentSlide = 0;
+                this.slideInterval = null;
+                this.init();
+            }
+
+            init() {
+                this.startSlideShow();
+            }
+
+            nextSlide() {
+                this.slides[this.currentSlide].classList.remove('active');
+                this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+                this.slides[this.currentSlide].classList.add('active');
+            }
+
+            startSlideShow() {
+                this.slideInterval = setInterval(() => {
+                    this.nextSlide();
+                }, 5000);
+            }
+
+            stopSlideShow() {
+                if (this.slideInterval) {
+                    clearInterval(this.slideInterval);
+                }
+            }
+        }
+
+        // Initialize destinations with better images
+        const destinations = [
+            new Destination('paris', 'Paris, France', 'Europe', 'https://static.independent.co.uk/2025/04/25/13/42/iStock-1498516775.jpg', 'https://en.wikipedia.org/wiki/Paris', '$700'),
+            new Destination('tokyo', 'Tokyo, Japan', 'Asia', 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2088&q=80', 'https://en.wikipedia.org/wiki/Tokyo', '$800'),
+            new Destination('rome', 'Rome, Italy', 'Europe', 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2096&q=80', 'https://en.wikipedia.org/wiki/Rome', '$500'),
+            new Destination('sydney', 'Sydney, Australia', 'Oceania', 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80', 'https://en.wikipedia.org/wiki/Sydney', '$900'),
+            new Destination('newyork', 'New York, USA', 'America', 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80', 'https://en.wikipedia.org/wiki/New_York_City', '$700'),
+            new Destination('cairo', 'Cairo, Egypt', 'Africa', 'https://www.magnificenttravel.com/public/uploads/2025/01/27/67973b08060d9/Cairo-Sultan-Hassan-Mosque--.jpg', 'https://en.wikipedia.org/wiki/Cairo', '$400'),
+            new Destination('london', 'London, England', 'Europe', 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80', 'https://en.wikipedia.org/wiki/London', '$550'),
+            new Destination('bali', 'Bali, Indonesia', 'Asia', 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80', 'https://en.wikipedia.org/wiki/Bali', '$350'),
+            new Destination('barcelona', 'Barcelona, Spain', 'Europe', 'https://i.natgeofe.com/n/295349af-5e41-4681-9497-58d72eaf8254/temple-barcelona-spain.jpg', 'https://en.wikipedia.org/wiki/Barcelona', '$650'), 
+            new Destination('amsterdam', 'Amsterdam, Netherlands', 'Europe', 'https://cdn.britannica.com/30/180130-138-4FC01CDD/Overview-Amsterdam.jpg?w=800&h=450&c=crop', 'https://en.wikipedia.org/wiki/Amsterdam', '$600'), 
+	    new Destination('beijing', 'Beijing, China', 'Asia', 'https://cdn.britannica.com/20/20120-050-89764C76/Tiananmen-entryway-Imperial-City-China-Beijing.jpg', 'https://en.wikipedia.org/wiki/Beijing', '$750'), 
+            new Destination('dubai', 'Dubai, UAE', 'Asia', 'https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2020/07/08/2180276-271637674.jpg?itok=YyKElDIv', 'https://en.wikipedia.org/wiki/Dubai', '$900'), 
+            new Destination('rio', 'Rio de Janeiro, Brazil', 'America', 'https://images.unsplash.com/photo-1509395176047-4a66953fd231?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80', 'https://en.wikipedia.org/wiki/Rio_de_Janeiro', '$700'), 
+            new Destination('losangeles', 'Los Angeles, USA', 'America', 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80', 'https://en.wikipedia.org/wiki/Los_Angeles', '$650'), 
+            new Destination('marrakech', 'Marrakech, Morocco', 'Africa', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMiHXV_WSUPD7MvtwTujNGUyXOHBL8EgGH-g&s', 'https://en.wikipedia.org/wiki/Marrakech', '$450'), 
+            new Destination('cape-town', 'Cape Town, South Africa', 'Africa', 'https://s.yimg.com/ny/api/res/1.2/bsvi1uvtcg4RJlCCYk2pwQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTcyMDtjZj13ZWJw/https://s.yimg.com/os/creatr-uploaded-images/2024-06/8357e6f0-30b3-11ef-b1b3-44af1e372d13', 'https://en.wikipedia.org/wiki/Cape_Town', '$500'), 
+            new Destination('auckland', 'Auckland, New Zealand', 'Oceania', 'https://awinterescape.com/wp-content/uploads/2023/01/auckland-skyline-2.jpg', 'https://en.wikipedia.org/wiki/Auckland', '$550'), 
+            new Destination('melbourne', 'Melbourne, Australia', 'Oceania', 'https://www.cruiseandtravel.co.uk/_gatsby/file/4b9f6add774f6a00098fdfa2f32d358f/98543_iStock-876026224-1024x705.jpg', 'https://en.wikipedia.org/wiki/Melbourne', '$600')
+        ];
+
+        // Global variables - Using localStorage with fallback to in-memory storage
+        let bucketList = [];
+        let filteredDestinations = [...destinations];
+
+        // Storage functions with fallback
+        function saveBucketList() {
+            try {
+                localStorage.setItem('wanderwise-bucketlist', JSON.stringify(bucketList));
+            } catch (e) {
+                // localStorage not available, continue with in-memory storage
+                console.log('localStorage not available, using in-memory storage');
+            }
+        }
+
+        function loadBucketList() {
+            try {
+                const saved = localStorage.getItem('wanderwise-bucketlist');
+                if (saved) {
+                    const savedIds = JSON.parse(saved);
+                    // Reconstruct objects from IDs
+                    bucketList = savedIds.map(id => destinations.find(d => d.id === id)).filter(Boolean);
+                }
+            } catch (e) {
+                // localStorage not available or corrupted, start with empty list
+                bucketList = [];
+            }
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved bucket list
+            loadBucketList();
+            
+            // Initialize hero slider
+            const heroSlider = new HeroSlider('heroSlider');
+            
+            // Set current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Render destinations
+            renderDestinations();
+            renderBucketList();
+            updatePlannerDestinations();
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Navigation
+            document.getElementById('hamburger').addEventListener('click', toggleNavigation);
+            
+            // Search and filter
+            document.getElementById('searchInput').addEventListener('input', filterDestinations);
+            document.getElementById('continentFilter').addEventListener('change', filterDestinations);
+            
+            // Contact form
+            document.getElementById('contactForm').addEventListener('submit', handleContactForm);
+            
+            // Navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    scrollToSection(targetId);
+                });
+            });
+        }
+
+        function toggleNavigation() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const headerHeight = 80;
+            const targetPosition = section.offsetTop - headerHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        function filterDestinations() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedContinent = document.getElementById('continentFilter').value;
+            
+            filteredDestinations = destinations.filter(destination => {
+                const matchesSearch = destination.name.toLowerCase().includes(searchTerm);
+                const matchesContinent = selectedContinent === 'all' || destination.continent === selectedContinent;
+                return matchesSearch && matchesContinent;
+            });
+            
+            renderDestinations();
+        }
+
+        function renderDestinations() {
+            const grid = document.getElementById('destinationsGrid');
+            
+            if (filteredDestinations.length === 0) {
+                grid.innerHTML = '<div class="empty-bucket"><h3>No destinations found</h3><p>Try adjusting your search or filter.</p></div>';
+                return;
+            }
+            
+            grid.innerHTML = filteredDestinations.map(destination => destination.getCard()).join('');
+        }
+
+        function addToBucketList(destinationId) {
+            const destination = destinations.find(d => d.id === destinationId);
+            
+            if (!bucketList.find(d => d.id === destinationId)) {
+                bucketList.push(destination);
+                saveBucketList();
+                renderBucketList();
+                updatePlannerDestinations();
+                
+                // Show success message
+                alert(`${destination.name} added to your bucket list!`);
+            } else {
+                alert(`${destination.name} is already in your bucket list!`);
+            }
+        }
+
+        function removeFromBucketList(destinationId) {
+            const destination = destinations.find(d => d.id === destinationId);
+            bucketList = bucketList.filter(d => d.id !== destinationId);
+            saveBucketList();
+            renderBucketList();
+            updatePlannerDestinations();
+            alert(`${destination.name} removed from your bucket list!`);
+        }
+
+        function clearBucketList() {
+            if (bucketList.length === 0) {
+                alert('Your bucket list is already empty!');
+                return;
+            }
+            
+            if (confirm('Are you sure you want to clear your entire bucket list?')) {
+                bucketList = [];
+                saveBucketList();
+                renderBucketList();
+                updatePlannerDestinations();
+            }
+        }
+
+        function sortBucketList() {
+            if (bucketList.length === 0) {
+                alert('Your bucket list is empty!');
+                return;
+            }
+            
+            bucketList.sort((a, b) => a.name.localeCompare(b.name));
+            saveBucketList();
+            renderBucketList();
+        }
+
+        function renderBucketList() {
+            const grid = document.getElementById('bucketListGrid');
+            
+            if (bucketList.length === 0) {
+                grid.innerHTML = '<div class="empty-bucket"><h3>Your bucket list is empty</h3><p>Add some destinations from our recommendations above!</p></div>';
+            } else {
+                grid.innerHTML = bucketList.map(destination => destination.getBucketCard()).join('');
+            }
+        }
+
+        function updatePlannerDestinations() {
+            const select = document.getElementById('plannerDestination');
+            select.innerHTML = '<option value="">Choose from your bucket list</option>';
+            
+            bucketList.forEach(destination => {
+                const option = document.createElement('option');
+                option.value = destination.id;
+                option.textContent = destination.name;
+                select.appendChild(option);
+            });
+        }
+
+        function planTrip() {
+            const destinationId = document.getElementById('plannerDestination').value;
+            const travelers = parseInt(document.getElementById('travelers').value);
+            
+            if (!destinationId) {
+                alert('Please select a destination from your bucket list!');
+                return;
+            }
+            
+            if (!travelers || travelers < 1) {
+                alert('Please enter a valid number of travelers!');
+                return;
+            }
+            
+            const destination = bucketList.find(d => d.id === destinationId);
+            const totalBudget = destination.budget * travelers;
+            
+            const itineraries = {
+                'paris': ['Visit Eiffel Tower', 'Explore Louvre Museum', 'Stroll along Seine River', 'Visit Montmartre'],
+                'tokyo': ['Visit Tokyo Tower', 'Explore Shibuya Crossing', 'Traditional Sushi Experience', 'Cherry Blossom viewing'],
+                'rome': ['Visit Colosseum', 'Explore Vatican City', 'Throw coin in Trevi Fountain', 'Roman Forum tour'],
+                'sydney': ['Visit Opera House', 'Climb Harbor Bridge', 'Bondi Beach day', 'Blue Mountains excursion'],
+                'newyork': ['Visit Statue of Liberty', 'Central Park walk', 'Broadway show', 'Times Square experience'],
+                'cairo': ['Visit Pyramids of Giza', 'Explore Egyptian Museum', 'Nile River cruise', 'Khan el-Khalili bazaar'],
+                'london': ['Visit Big Ben', 'Explore British Museum', 'Thames River cruise', 'Buckingham Palace tour'],
+                'bali': ['Visit Tanah Lot Temple', 'Ubud rice terraces', 'Traditional spa day', 'Sunset at Uluwatu']
+            };
+            
+            const itinerary = itineraries[destinationId] || ['Explore local attractions', 'Try local cuisine', 'Visit cultural sites', 'Relax and enjoy'];
+            
+            const resultDiv = document.getElementById('tripResult');
+            const detailsDiv = document.getElementById('tripDetails');
+            
+            detailsDiv.innerHTML = `
+                <div style="margin-bottom: 1rem;">
+                    <strong>Destination:</strong> ${destination.name}
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <strong>Travelers:</strong> ${travelers} person${travelers > 1 ? 's' : ''}
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <strong>Estimated Budget:</strong> ${totalBudget} total (${destination.budget} per person)
+                </div>
+                <div>
+                    <strong>Suggested Itinerary:</strong>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        ${itinerary.map(activity => `<li>${activity}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            resultDiv.style.display = 'block';
+        }
+
+        function handleContactForm(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Basic validation
+            if (!name || !email || !message) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address!');
+                return;
+            }
+            
+            // Simulate form submission
+            alert(`Thank you, ${name}! Your message has been sent successfully. We'll get back to you within 24 hours.`);
+            
+            // Reset form
+            document.getElementById('contactForm').reset();
+        }
+
+        // Smooth scrolling for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    const headerHeight = 80;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Close mobile navigation when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
